@@ -26,6 +26,10 @@ rm -f "$HOME/.local/bin/mexerica" \
   "$CONFIG/autostart/$APP_ID.desktop" \
   "$DATA/nautilus/scripts/$SCRIPT_NAME"
 rm -rf "$DATA/gnome-shell/extensions/$UUID"
+# Leftovers of 0.1.0, installed as io.github.mexerica / mexerica@mexerica.github.io.
+rm -rf "$DATA/gnome-shell/extensions/mexerica@mexerica.github.io"
+rm -f "$DATA/applications/io.github.mexerica.desktop" "$DATA/dbus-1/services/io.github.mexerica.service" \
+  "$CONFIG/autostart/io.github.mexerica.desktop" "$DATA/icons/hicolor/scalable/apps/io.github.mexerica.svg"
 if [ -f "$CONFIG/nautilus/scripts-accels" ]; then
   sed -i "/ $SCRIPT_NAME\$/d" "$CONFIG/nautilus/scripts-accels"
 fi

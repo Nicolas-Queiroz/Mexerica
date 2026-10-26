@@ -36,6 +36,22 @@ fi
 "$REPO/.venv/bin/python" -m pip install --quiet --upgrade pip
 "$REPO/.venv/bin/python" -m pip install --quiet -e "$REPO"
 
+step "Removendo instalação anterior com identificadores antigos (se houver)"
+# Up to 0.1.0 the app was io.github.mexerica and the extension mexerica@mexerica.github.io.
+LEGACY_ID="io.github.mexerica"
+LEGACY_UUID="mexerica@mexerica.github.io"
+rm -rf "$DATA/gnome-shell/extensions/$LEGACY_UUID"
+rm -f "$DATA/applications/$LEGACY_ID.desktop" "$DATA/dbus-1/services/$LEGACY_ID.service" \
+  "$CONFIG/autostart/$LEGACY_ID.desktop" "$DATA/icons/hicolor/scalable/apps/$LEGACY_ID.svg" \
+  "$DATA/icons/hicolor/symbolic/apps/$LEGACY_ID-symbolic.svg"
+if command -v gsettings >/dev/null; then
+  current="$(gsettings get org.gnome.shell enabled-extensions 2>/dev/null || true)"
+  if [[ "$current" == *"$LEGACY_UUID"* ]]; then
+    gsettings set org.gnome.shell enabled-extensions \
+      "$(echo "$current" | sed -E "s/, *'$LEGACY_UUID'//; s/'$LEGACY_UUID', *//; s/'$LEGACY_UUID'//")"
+  fi
+fi
+
 step "Lançador em $LAUNCHER"
 mkdir -p "$BIN"
 cat > "$LAUNCHER" <<EOF
