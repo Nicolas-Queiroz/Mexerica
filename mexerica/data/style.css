@@ -1,0 +1,23 @@
+/* Borderless wheel window: only the wheel itself is painted. */
+window.mexerica-overlay,
+window.mexerica-overlay > * {
+  background: none;
+  box-shadow: none;
+  border: none;
+}
+
+.mexerica-wheel:focus-visible {
+  outline: none;
+}
+
+.mexerica-selection {
+  border-radius: 12px;
+}
+
+.mexerica-thumb {
+  border-radius: 8px;
+}
+
+.mexerica-stage statuspage > scrolledwindow > viewport > box > image {
+  -gtk-icon-size: 112px;
+}

@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mexerica"
+version = "0.1.0"
+description = "Conversor de arquivos offline para o desktop Linux: arraste, segure uma tecla, solte na roda."
+requires-python = ">=3.11"
+dependencies = [
+    "imageio-ffmpeg",
+    "pypandoc_binary",
+    "pymupdf",
+    "pymupdf4llm",
+    "pdf2docx",
+    "pillow",
+    "pillow-heif",
+    "python-pptx",
+    "python-docx",
+    "openpyxl",
+]
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[project.scripts]
+mexerica = "mexerica.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["mexerica*"]
+
+[tool.setuptools.package-data]
+mexerica = ["data/*.css", "data/icons/hicolor/*/apps/*.svg"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-p no:cacheprovider"
+
+[tool.black]
+line-length = 100

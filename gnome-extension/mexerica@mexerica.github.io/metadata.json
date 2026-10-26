@@ -1,0 +1,7 @@
+{
+  "uuid": "mexerica@mexerica.github.io",
+  "name": "Mexerica",
+  "description": "Segure Shift, Ctrl ou Alt enquanto arrasta um arquivo para abrir a roda do Mexerica sob o ponteiro: converter, ferramentas e ações.",
+  "shell-version": ["46", "47", "48", "49"],
+  "version-name": "0.1.0"
+}

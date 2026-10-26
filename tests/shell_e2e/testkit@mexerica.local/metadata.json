@@ -1,0 +1,6 @@
+{
+  "uuid": "testkit@mexerica.local",
+  "name": "Mexerica testkit",
+  "description": "Test-only: unsafe mode so the harness can use Shell.Eval. Never install it in a real session.",
+  "shell-version": ["46", "47", "48", "49"]
+}

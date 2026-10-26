@@ -1,0 +1,17 @@
+Metadata-Version: 2.4
+Name: mexerica
+Version: 0.1.0
+Summary: Conversor de arquivos offline para o desktop Linux: arraste, segure uma tecla, solte na roda.
+Requires-Python: >=3.11
+Requires-Dist: imageio-ffmpeg
+Requires-Dist: pypandoc_binary
+Requires-Dist: pymupdf
+Requires-Dist: pymupdf4llm
+Requires-Dist: pdf2docx
+Requires-Dist: pillow
+Requires-Dist: pillow-heif
+Requires-Dist: python-pptx
+Requires-Dist: python-docx
+Requires-Dist: openpyxl
+Provides-Extra: test
+Requires-Dist: pytest; extra == "test"

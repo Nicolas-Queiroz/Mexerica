@@ -1,0 +1,2 @@
+[console_scripts]
+mexerica = mexerica.__main__:main

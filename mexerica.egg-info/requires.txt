@@ -1,0 +1,13 @@
+imageio-ffmpeg
+pypandoc_binary
+pymupdf
+pymupdf4llm
+pdf2docx
+pillow
+pillow-heif
+python-pptx
+python-docx
+openpyxl
+
+[test]
+pytest
