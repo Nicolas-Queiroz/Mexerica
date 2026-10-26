@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -7,6 +7,9 @@ name = "mexerica"
 version = "0.1.0"
 description = "Conversor de arquivos offline para o desktop Linux: arraste, segure uma tecla, solte na roda."
 requires-python = ">=3.11"
+license = "AGPL-3.0-or-later"
+license-files = ["LICENSE"]
+authors = [{ name = "Nicolas Queiroz" }]
 dependencies = [
     "imageio-ffmpeg",
     "pypandoc_binary",
@@ -18,7 +21,12 @@ dependencies = [
     "python-pptx",
     "python-docx",
     "openpyxl",
+    "segno",
 ]
+
+[project.urls]
+Homepage = "https://github.com/Nicolas-Queiroz/Mexerica"
+Issues = "https://github.com/Nicolas-Queiroz/Mexerica/issues"
 
 [project.optional-dependencies]
 test = ["pytest"]

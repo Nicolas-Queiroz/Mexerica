@@ -6,6 +6,9 @@ solte na roda. Nada é enviado para a internet; tudo roda no seu computador.
 
 ![roda](docs/roda.png)
 
+Grátis e de código aberto. Se ele te ajudar, [um Pix de qualquer valor](#apoie-com-pix) ajuda
+a manter o projeto, sem obrigação nenhuma.
+
 ## O que faz
 
 | | Quantidade | Exemplos |
@@ -60,13 +63,14 @@ curto que lembra os últimos valores usados.
 ## Instalar
 
 ```bash
-./install.sh
+git clone https://github.com/Nicolas-Queiroz/Mexerica.git ~/Mexerica
+~/Mexerica/install.sh
 ```
 
 Sem `sudo`. Ele cria o ambiente virtual em `.venv` e instala para o seu usuário: o lançador
 `~/.local/bin/mexerica`, o atalho no menu de aplicativos, o serviço D-Bus, o início automático
 em segundo plano (para a roda abrir sem espera), a extensão do GNOME Shell e o script do
-Nautilus com o atalho F4.
+Nautilus com o atalho F4. Para atualizar depois: `git -C ~/Mexerica pull && ~/Mexerica/install.sh`.
 
 **Depois de instalar, encerre a sessão e entre de novo:** no Wayland, o GNOME só carrega
 extensões novas no login. Para remover tudo: `./uninstall.sh`.
@@ -114,7 +118,7 @@ nela normalmente.
 ## Testes
 
 ```bash
-.venv/bin/python -m pytest          # 320 testes: cada conversão roda num arquivo real e o resultado é validado
+.venv/bin/python -m pytest          # 325 testes: cada conversão roda num arquivo real e o resultado é validado
 tests/shell_e2e/run.sh              # o gesto de verdade, num GNOME Shell sem tela e isolado
 ```
 
@@ -123,3 +127,25 @@ diretórios e configurações próprios (não toca na sua sessão), inicia o app
 que arrasta um arquivo e simula o mouse e o teclado pela API RemoteDesktop do Mutter:
 Shift + soltar no topo gera `foto.jpg`, Ctrl + soltar em "Preto e branco" gera
 `foto (pb).png`, soltar fora não faz nada, e `mexerica --wheel` + → + Enter gera `foto.webp`.
+
+## Apoie com Pix
+
+O Mexerica é grátis e continua grátis. Se ele te poupou tempo, um Pix de qualquer valor ajuda
+a manter o projeto. Também dá para abrir pelo app: menu › **Apoiar com Pix**.
+
+<img src="docs/pix.png" alt="QR Code Pix" width="220">
+
+- **Chave aleatória:** `53c6b7e4-a1fc-4dff-b32d-8fb226309bfb`
+- **Recebedor:** Nicolas R de Queiroz (Banco Inter)
+- **Pix copia e cola:**
+
+  ```
+  00020101021126580014br.gov.bcb.pix013653c6b7e4-a1fc-4dff-b32d-8fb226309bfb5204000053039865802BR5920NICOLAS R DE QUEIROZ6008BRASILIA62070503***6304EA03
+  ```
+
+## Licença
+
+O aplicativo é distribuído sob a [GNU AGPL 3.0 ou posterior](LICENSE) (exigência do PyMuPDF,
+que ele usa para PDF). A extensão do GNOME Shell (`gnome-extension/`) é GPL 2.0 ou posterior,
+como o próprio GNOME Shell.
+

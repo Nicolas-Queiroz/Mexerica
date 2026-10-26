@@ -23,6 +23,7 @@ MENU = """
     <section>
       <item><attribute name="label">Preferências</attribute><attribute name="action">app.preferences</attribute></item>
       <item><attribute name="label">Atalhos de teclado</attribute><attribute name="action">app.shortcuts</attribute></item>
+      <item><attribute name="label">Apoiar com Pix</attribute><attribute name="action">app.donate</attribute></item>
       <item><attribute name="label">Sobre o Mexerica</attribute><attribute name="action">app.about</attribute></item>
     </section>
   </menu>
@@ -52,15 +53,18 @@ class MainWindow(Adw.ApplicationWindow):
         body.append(self._build_stage())
         body.append(self._build_selection_bar())
         body.append(self._build_jobs())
-        footer = Gtk.Label(
-            label=(
-                f"{conversions.total_conversions()} conversões · {len(TOOLS)} ferramentas · "
-                f"{len(ACTIONS)} ações · tudo no seu computador"
-            ),
-            css_classes=["dim-label", "caption"],
-            margin_bottom=10,
-            margin_top=4,
+        footer = Gtk.Box(halign=Gtk.Align.CENTER, spacing=4, margin_bottom=6, margin_top=2)
+        footer.append(
+            Gtk.Label(
+                label=(
+                    f"{conversions.total_conversions()} conversões · {len(TOOLS)} ferramentas · "
+                    f"{len(ACTIONS)} ações · tudo no seu computador ·"
+                ),
+                css_classes=["dim-label", "caption"],
+            )
         )
+        donate = Gtk.Button(label="Apoiar com Pix", action_name="app.donate", css_classes=["flat", "caption", "mexerica-donate"])
+        footer.append(donate)
         body.append(footer)
         self.toasts.set_child(body)
 

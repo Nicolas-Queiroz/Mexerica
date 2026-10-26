@@ -2,8 +2,8 @@
 # Removes everything install.sh put in the home folder (the project folder stays).
 set -uo pipefail
 
-APP_ID="io.github.mexerica"
-UUID="mexerica@mexerica.github.io"
+APP_ID="io.github.Nicolas_Queiroz.Mexerica"
+UUID="mexerica@nicolas-queiroz.github.io"
 DATA="${XDG_DATA_HOME:-$HOME/.local/share}"
 CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}"
 SCRIPT_NAME="Abrir na roda do Mexerica"

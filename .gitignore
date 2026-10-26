@@ -5,3 +5,4 @@ __pycache__/
 /build/
 /tests/_out/
 *.egg-info/
+/dist/

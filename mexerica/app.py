@@ -12,7 +12,7 @@ gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 from gi.repository import Adw, Gdk, Gio, GLib, Gtk  # noqa: E402
 
-from . import APP_ID, APP_NAME, VERSION  # noqa: E402
+from . import APP_ID, APP_NAME, VERSION, WEBSITE  # noqa: E402
 from .config import Config  # noqa: E402
 from .ui.dispatch import Dispatcher  # noqa: E402
 from .ui.jobs import JobManager  # noqa: E402
@@ -61,6 +61,7 @@ class MexericaApp(Adw.Application):
         Gtk.Window.set_default_icon_name(APP_ID)
         self._add_action("preferences", self._show_preferences)
         self._add_action("about", self._show_about)
+        self._add_action("donate", self._show_donate)
         self._add_action("shortcuts", self._show_shortcuts)
         self._add_action("quit", lambda *_: self.quit())
         self._add_action("show-wheel", lambda _a, value: self.show_wheel_for_drag(value.get_string()), "s")
@@ -153,10 +154,19 @@ class MexericaApp(Adw.Application):
             application_icon=APP_ID,
             version=VERSION,
             comments="Conversor de arquivos offline: arraste, segure uma tecla e solte na roda.",
-            license_type=Gtk.License.MIT_X11,
-            developer_name="Mexerica",
+            license_type=Gtk.License.AGPL_3_0,
+            developer_name="Nicolas Queiroz",
+            copyright="© 2026 Nicolas Queiroz",
+            website=WEBSITE,
+            issue_url=f"{WEBSITE}/issues",
         )
+        about.add_link("Apoiar com Pix", f"{WEBSITE}#apoie-com-pix")
         about.present(self.get_active_window())
+
+    def _show_donate(self, *_args) -> None:
+        from .ui.donate import DonateDialog
+
+        DonateDialog().present(self.get_active_window())
 
     def _show_shortcuts(self, *_args) -> None:
         dialog = Adw.AlertDialog(heading="Atalhos de teclado", body=SHORTCUTS_HELP)

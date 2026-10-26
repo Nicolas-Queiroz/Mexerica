@@ -5,8 +5,8 @@
 set -euo pipefail
 
 REPO="$(cd "$(dirname "$0")" && pwd)"
-APP_ID="io.github.mexerica"
-UUID="mexerica@mexerica.github.io"
+APP_ID="io.github.Nicolas_Queiroz.Mexerica"
+UUID="mexerica@nicolas-queiroz.github.io"
 DATA="${XDG_DATA_HOME:-$HOME/.local/share}"
 CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}"
 BIN="$HOME/.local/bin"

@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-2.0-or-later
 // Opens the Mexerica wheel under the pointer when a modifier is held during a file drag.
 //
 // The Shell sees every Wayland drag (Meta.Dnd) and the seat's modifier state; the app cannot.
@@ -11,8 +12,8 @@ import GLib from 'gi://GLib';
 import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-const APP_ID = 'io.github.mexerica';
-const OBJECT_PATH = '/io/github/mexerica';
+const APP_ID = 'io.github.Nicolas_Queiroz.Mexerica';
+const OBJECT_PATH = '/io/github/Nicolas_Queiroz/Mexerica';
 const WHEEL_TITLE = 'Mexerica Roda';
 const FLOAT_TITLE = 'Mexerica Flutuante';
 const POLL_MS = 50;
@@ -34,6 +35,7 @@ export default class MexericaExtension extends Extension {
         this._anchor = null;
         this._pollId = 0;
         this._hideId = 0;
+        this._pendingWindows = new Map();
 
         this._dnd = global.backend.get_dnd();
         this._dndIds = [
@@ -60,6 +62,9 @@ export default class MexericaExtension extends Extension {
         this._dndIds = [];
         this._dnd = null;
         global.display.disconnect(this._windowCreatedId);
+        for (const [window, id] of this._pendingWindows)
+            window.disconnect(id);
+        this._pendingWindows.clear();
         this._configMonitor.disconnect(this._configMonitorId);
         this._configMonitor.cancel();
         this._configMonitor = null;
@@ -160,8 +165,10 @@ export default class MexericaExtension extends Extension {
         // On Wayland the title and app id arrive after creation; act once the window shows.
         const id = window.connect('shown', () => {
             window.disconnect(id);
+            this._pendingWindows.delete(window);
             this._arrange(window);
         });
+        this._pendingWindows.set(window, id);
     }
 
     _arrange(window) {

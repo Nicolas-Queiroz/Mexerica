@@ -13,7 +13,7 @@ if [ "${1:-}" != "--inner" ]; then
   trap 'fusermount3 -u "$WORK/run/doc" 2>/dev/null; fusermount -u "$WORK/run/doc" 2>/dev/null; rm -rf "$WORK"' EXIT
   mkdir -p "$WORK/run" "$WORK/data/gnome-shell/extensions" "$WORK/config" "$WORK/files"
   chmod 700 "$WORK/run"
-  cp -r "$REPO/gnome-extension/mexerica@mexerica.github.io" "$HERE/testkit@mexerica.local" \
+  cp -r "$REPO/gnome-extension/mexerica@nicolas-queiroz.github.io" "$HERE/testkit@mexerica.local" \
     "$WORK/data/gnome-shell/extensions/"
   XDG_RUNTIME_DIR="$WORK/run" XDG_DATA_HOME="$WORK/data" XDG_CONFIG_HOME="$WORK/config" \
     GSETTINGS_BACKEND=memory dbus-run-session -- "$0" --inner "$WORK" 2> "$WORK/stderr.log"
@@ -43,7 +43,7 @@ for _ in $(seq 1 60); do
   sleep 0.5
 done
 enable testkit@mexerica.local
-enable mexerica@mexerica.github.io
+enable mexerica@nicolas-queiroz.github.io
 sleep 1
 # The overview and the distro welcome dialog grab the pointer at first login.
 shell_eval "Main.overview.hide()"

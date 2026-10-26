@@ -21,3 +21,13 @@ window.mexerica-overlay > * {
 .mexerica-stage statuspage > scrolledwindow > viewport > box > image {
   -gtk-icon-size: 112px;
 }
+
+.mexerica-donate {
+  padding: 2px 6px;
+  min-height: 0;
+  color: #e86200;
+}
+
+.mexerica-pix-qr {
+  border-radius: 12px;
+}

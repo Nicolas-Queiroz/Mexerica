@@ -4,7 +4,7 @@ import os
 import shutil
 from pathlib import Path
 
-EXTENSION_UUID = "mexerica@mexerica.github.io"
+EXTENSION_UUID = "mexerica@nicolas-queiroz.github.io"
 NAUTILUS_SCRIPT_NAME = "Abrir na roda do Mexerica"
 NAUTILUS_SHORTCUT = "F4"
 EXTENSION_STATES = {

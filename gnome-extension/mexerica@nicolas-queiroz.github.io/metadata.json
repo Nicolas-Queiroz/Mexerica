@@ -1,0 +1,16 @@
+{
+  "uuid": "mexerica@nicolas-queiroz.github.io",
+  "name": "Mexerica",
+  "description": "Segure Shift, Ctrl ou Alt enquanto arrasta um arquivo e a roda do Mexerica aparece sob o ponteiro: converter (299 conversões), ferramentas e ações, tudo offline.\n\nRequer o aplicativo Mexerica instalado: https://github.com/Nicolas-Queiroz/Mexerica",
+  "shell-version": [
+    "46",
+    "47",
+    "48",
+    "49"
+  ],
+  "version-name": "0.1.0",
+  "url": "https://github.com/Nicolas-Queiroz/Mexerica",
+  "donations": {
+    "custom": "https://github.com/Nicolas-Queiroz/Mexerica#apoie-com-pix"
+  }
+}
