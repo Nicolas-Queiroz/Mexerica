@@ -52,13 +52,32 @@ shell_eval "global.stage.get_grab_actor()?.close?.()"
 sleep 1
 
 "$PY" -c "from PIL import Image; Image.new('RGB', (320, 200), 'orange').save('files/foto.png')"
-MEXERICA_DEBUG=1 "$PY" -m mexerica --background > app.log 2>&1 &
-APP_PID=$!
 "$PY" "$HERE/dragsource.py" "$WORK/files/foto.png" > source.log 2>&1 &
 SOURCE_PID=$!
-sleep 5
+sleep 4
 
 failures=0
+# Installed from extensions.gnome.org without the app: the extension must say so, not fail silently.
+"$PY" "$HERE/input.py" drag 0 -140 shift &
+INPUT_PID=$!
+sleep 3
+notes=$(gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell --method org.gnome.Shell.Eval \
+  "Main.messageTray.getSources().flatMap(source => source.notifications).map(note => note.title).join('|')")
+wait $INPUT_PID
+if [[ "$notes" == *"falta instalar o aplicativo"* ]]; then
+  echo "PASS  sem o app instalado: aviso com o link de instalação"
+else
+  echo "FAIL  sem o app instalado, nenhum aviso apareceu ($notes)"; failures=$((failures + 1))
+fi
+# The extension cached "app missing" for this session; reload it, as a fresh login would.
+gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell \
+  --method org.gnome.Shell.Extensions.DisableExtension mexerica@nicolas-queiroz.github.io > /dev/null
+enable mexerica@nicolas-queiroz.github.io
+
+MEXERICA_DEBUG=1 "$PY" -m mexerica --background > app.log 2>&1 &
+APP_PID=$!
+sleep 3
+
 check() {
   local name="$1" expected="$2"
   if [ -e "files/$expected" ]; then

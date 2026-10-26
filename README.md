@@ -72,6 +72,10 @@ Sem `sudo`. Ele cria o ambiente virtual em `.venv` e instala para o seu usuário
 em segundo plano (para a roda abrir sem espera), a extensão do GNOME Shell e o script do
 Nautilus com o atalho F4. Para atualizar depois: `git -C ~/Mexerica pull && ~/Mexerica/install.sh`.
 
+**Instalou só a extensão pelo extensions.gnome.org?** Ela sozinha não converte nada: quem
+faz o trabalho é o app. Rode os dois comandos acima (o `install.sh` usa a mesma extensão,
+não duplica). Enquanto o app não estiver instalado, a extensão avisa com um link para cá.
+
 **Depois de instalar, encerre a sessão e entre de novo:** no Wayland, o GNOME só carrega
 extensões novas no login. Para remover tudo: `./uninstall.sh`.
 

@@ -11,11 +11,13 @@ import GLib from 'gi://GLib';
 
 import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import * as MessageTray from 'resource:///org/gnome/shell/ui/messageTray.js';
 
 const APP_ID = 'io.github.Nicolas_Queiroz.Mexerica';
 const OBJECT_PATH = '/io/github/Nicolas_Queiroz/Mexerica';
 const WHEEL_TITLE = 'Mexerica Roda';
 const FLOAT_TITLE = 'Mexerica Flutuante';
+const INSTALL_URL = 'https://github.com/Nicolas-Queiroz/Mexerica#instalar';
 const POLL_MS = 50;
 const HIDE_DELAY_MS = 400;
 const DEFAULT_KEYS = {convert: 'shift', tools: 'control', actions: 'alt'};
@@ -36,6 +38,7 @@ export default class MexericaExtension extends Extension {
         this._pollId = 0;
         this._hideId = 0;
         this._pendingWindows = new Map();
+        this._missingAppNotified = false;
 
         this._dnd = global.backend.get_dnd();
         this._dndIds = [
@@ -156,9 +159,36 @@ export default class MexericaExtension extends Extension {
                 try {
                     connection.call_finish(result);
                 } catch (error) {
-                    console.warn(`Mexerica: ${name} falhou: ${error.message}`);
+                    if (this._isAppMissing(error))
+                        this._notifyMissingApp();
+                    else
+                        console.warn(`Mexerica: ${name} falhou: ${error.message}`);
                 }
             });
+    }
+
+    _isAppMissing(error) {
+        return error.matches(Gio.DBusError, Gio.DBusError.SERVICE_UNKNOWN) ||
+            error.matches(Gio.DBusError, Gio.DBusError.NAME_HAS_NO_OWNER) ||
+            Gio.DBusError.get_remote_error(error) === 'org.freedesktop.DBus.Error.ServiceUnknown';
+    }
+
+    _notifyMissingApp() {
+        // Installed from extensions.gnome.org without the app: say so once, instead of failing silently.
+        if (this._missingAppNotified)
+            return;
+        this._missingAppNotified = true;
+        const source = MessageTray.getSystemSource();
+        const notification = new MessageTray.Notification({
+            source,
+            title: 'Mexerica: falta instalar o aplicativo',
+            body: 'A extensão abre a roda, mas quem converte os arquivos é o app Mexerica. Clique para ver como instalar.',
+            isTransient: true,
+        });
+        notification.connect('activated', () => {
+            Gio.AppInfo.launch_default_for_uri(INSTALL_URL, global.create_app_launch_context(0, -1));
+        });
+        source.addNotification(notification);
     }
 
     _onWindowCreated(window) {
